@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ChatterToolkitForNET.FunctionalTests
+namespace ChatterToolkitForNET
 {
-    public class Class1
+    interface IChatterClient
     {
     }
 }
