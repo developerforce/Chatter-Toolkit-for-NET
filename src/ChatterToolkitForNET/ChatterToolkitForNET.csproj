@@ -38,6 +38,7 @@
     <Compile Include="ChatterClient.cs" />
     <Compile Include="IChatterClient.cs" />
     <Compile Include="Models\Chatter.cs" />
+    <Compile Include="Models\Unorganized.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
