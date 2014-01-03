@@ -5,8 +5,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ChatterToolkitForNET.Models;
-using ForceToolkitForNET;
-using ForceToolkitForNET.Models;
+using CommonToolkitForNET;
+using CommonToolkitForNET.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -27,7 +27,7 @@ namespace ChatterToolkitForNET
 
         public async Task<Chatter> Chatter()
         {
-            var url = FormatUrl("chatter");
+            var url = Common.FormatUrl("chatter", this.InstanceUrl, this.ApiVersion);
 
             using (var client = new HttpClient())
             {
@@ -59,7 +59,7 @@ namespace ChatterToolkitForNET
 
         public async Task<object> Feeds()
         {
-            var url = FormatUrl("chatter/feeds");
+            var url = Common.FormatUrl("chatter/feeds", this.InstanceUrl, this.ApiVersion);
 
             using (var client = new HttpClient())
             {
@@ -89,14 +89,9 @@ namespace ChatterToolkitForNET
             }
         }
 
-        public async Task<object> UsersMe()
-        {
+        //public async Task<object> UsersMe()
+        //{
             
-        }
-
-        protected string FormatUrl(string resourceName)
-        {
-            return string.Format("{0}/services/data/{1}/{2}", InstanceUrl, ApiVersion, resourceName);
-        }
+        //}
     }
 }
