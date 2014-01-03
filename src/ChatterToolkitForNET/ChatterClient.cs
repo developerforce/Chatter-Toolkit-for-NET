@@ -1,152 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ChatterToolkitForNET.Models;
 using CommonToolkitForNET;
-using CommonToolkitForNET.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ChatterToolkitForNET
 {
     public class ChatterClient : IChatterClient
     {
+        public string ApiVersion { get; set; }
+        public string InstanceUrl { get; set; }
+        public string AccessToken { get; set; }
+        
+        private static ToolkitHttpClient _toolkitHttpClient;
+
         public ChatterClient(string apiVersion, string instanceUrl, string accessToken)
         {
             this.ApiVersion = apiVersion;
             this.InstanceUrl = instanceUrl;
             this.AccessToken = accessToken;
+            string userAgent = "chatter-toolkit-dotnet/";
+
+            _toolkitHttpClient = new ToolkitHttpClient(instanceUrl, apiVersion, accessToken, userAgent);
         }
-
-        public string ApiVersion { get; set; }
-        public string InstanceUrl { get; set; }
-        public string AccessToken { get; set; }
-
+        
         public async Task<Chatter> Chatter()
         {
-            var url = Common.FormatUrl("chatter", this.InstanceUrl, this.ApiVersion);
-
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.UserAgent.ParseAdd(string.Format("chatter-toolkit-dotnet/{0}", ApiVersion));
-
-                var request = new HttpRequestMessage()
-                {
-                    RequestUri = new Uri(url),
-                    Method = HttpMethod.Get
-                };
-
-                request.Headers.Add("Authorization", "Bearer " + AccessToken);
-
-                var responseMessage = await client.SendAsync(request);
-                var response = await responseMessage.Content.ReadAsStringAsync();
-
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    var jObject = JObject.Parse(response);
-
-                    var r = JsonConvert.DeserializeObject<Chatter>(jObject.ToString());
-                    return r;
-                }
-
-                var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(response);
-                throw new ForceException(errorResponse.errorCode, errorResponse.message);
-            }
+            var chatter = await _toolkitHttpClient.HttpGet<Chatter>("chatter");
+            return chatter;
         }
 
-        public async Task<object> Feeds()
+        public async Task<T> Feeds<T>()
         {
-            var url = Common.FormatUrl("chatter/feeds", this.InstanceUrl, this.ApiVersion);
-
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.UserAgent.ParseAdd(string.Format("chatter-toolkit-dotnet/{0}", ApiVersion));
-
-                var request = new HttpRequestMessage()
-                {
-                    RequestUri = new Uri(url),
-                    Method = HttpMethod.Get
-                };
-
-                request.Headers.Add("Authorization", "Bearer " + AccessToken);
-
-                var responseMessage = await client.SendAsync(request);
-                var response = await responseMessage.Content.ReadAsStringAsync();
-
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    var jObject = JObject.Parse(response);
-
-                    var r = JsonConvert.DeserializeObject<object>(jObject.ToString());
-                    return r;
-                }
-
-                var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(response);
-                throw new ForceException(errorResponse.errorCode, errorResponse.message);
-            }
+            var feeds = await _toolkitHttpClient.HttpGet<T>("chatter/feeds");
+            return feeds;
         }
 
         public async Task<T> Me<T>()
         {
-            var url = Common.FormatUrl("chatter/users/me", this.InstanceUrl, this.ApiVersion);
-
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.UserAgent.ParseAdd(string.Format("chatter-toolkit-dotnet/{0}", ApiVersion));
-
-                var request = new HttpRequestMessage()
-                {
-                    RequestUri = new Uri(url),
-                    Method = HttpMethod.Get
-                };
-
-                request.Headers.Add("Authorization", "Bearer " + AccessToken);
-
-                var responseMessage = await client.SendAsync(request);
-                var response = await responseMessage.Content.ReadAsStringAsync();
-
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    var jObject = JObject.Parse(response);
-
-                    var r = JsonConvert.DeserializeObject<T>(jObject.ToString());
-                    return r;
-                }
-
-                var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(response);
-                throw new ForceException(errorResponse.errorCode, errorResponse.message);
-            }
+            var me = await _toolkitHttpClient.HttpGet<T>("chatter/users/me");
+            return me;
         }
 
-        public async Task<T> PostFeedItem<T>(FeedItemInput feedItemInput, string id)
+        public async Task<T> PostFeedItem<T>(FeedItemInput feedItemInput, string userId)
         {
-            var url = Common.FormatUrl(string.Format("chatter/feeds/news/{0}/feed-items", id), this.InstanceUrl, this.ApiVersion);
+            var feedItem = await _toolkitHttpClient.HttpPost<T>(feedItemInput, string.Format("chatter/feeds/news/{0}/feed-items", userId));
+            return feedItem;
+        }
 
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.UserAgent.ParseAdd(string.Format("chatter-toolkit-dotnet/{0}", ApiVersion));
-
-                var json = JsonConvert.SerializeObject(feedItemInput);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var responseMessage = await client.PostAsync(url, content);
-                var response = await responseMessage.Content.ReadAsStringAsync();
-
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    var feedItem = JsonConvert.DeserializeObject<T>(response);
-                    return feedItem;
-                }
-
-                var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(response);
-                throw new ForceException(errorResponse.message, errorResponse.errorCode);
-            }
+        public async Task<T> PostFeedItemComment<T>(FeedItemBody comment, string feedId)
+        {
+            var feedItem = await _toolkitHttpClient.HttpPost<T>(comment, string.Format("chatter/feed-items/{0}/comments", feedId));
+            return feedItem;
         }
     }
 }

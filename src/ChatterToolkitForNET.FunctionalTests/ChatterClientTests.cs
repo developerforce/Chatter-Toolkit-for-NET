@@ -37,6 +37,15 @@ namespace ChatterToolkitForNET.FunctionalTests
         }
 
         [Test]
+        public async void Chatter_Feeds_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var feeds = await chatter.Feeds<object>();
+
+            Assert.IsNotNull(feeds);
+        }
+
+        [Test]
         public async void Chatter_Users_Me_IsNotNull()
         {
             var chatter = await GetChatterClient();
@@ -79,12 +88,43 @@ namespace ChatterToolkitForNET.FunctionalTests
         }
 
         [Test]
-        public async void Chatter_Feeds_IsNotNull()
+        public async void Chatter_Add_Comment()
         {
             var chatter = await GetChatterClient();
-            var feeds = await chatter.Feeds();
+            var me = await chatter.Me<Me>();
+            var meId = me.id;
 
-            Assert.IsNotNull(feeds);
+            var messageSegment = new MessageSegment()
+            {
+                text = "Testing 1, 2, 3",
+                type = "Text"
+            };
+
+            var body = new FeedItemInputBody { messageSegments = new List<MessageSegment> { messageSegment } };
+            var feedItemInput = new FeedItemInput()
+            {
+                attachment = null,
+                body = body
+            };
+
+            var postFeedItem = await chatter.PostFeedItem<FeedItem>(feedItemInput, meId);
+            var feedId = postFeedItem.id;
+
+            var commentBody = new FeedItemBody
+            {
+                messageSegments = new List<MessageSegment>
+                {
+                    new MessageSegment
+                    {
+                        text = "Commenting testing 1, 2, 3",
+                        type = "Text"
+                    }
+                }
+            };
+
+            var comment = await chatter.PostFeedItemComment<object>(commentBody, feedId);
+            Assert.IsNotNull(comment);
         }
+
     }
 }
