@@ -35,13 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\..\lib\Force.com-Toolkit-for-Net\src\ForceToolkitForNET\ForceToolkitForNET.csproj">
-      <Project>{1cc985bc-27f3-4f1d-8946-f4ddb084b58f}</Project>
-      <Name>ForceToolkitForNET</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ChatterClient.cs" />
     <Compile Include="IChatterClient.cs" />
     <Compile Include="Models\Chatter.cs" />

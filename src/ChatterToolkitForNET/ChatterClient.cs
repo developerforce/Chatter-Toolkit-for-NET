@@ -89,6 +89,11 @@ namespace ChatterToolkitForNET
             }
         }
 
+        public async Task<object> UsersMe()
+        {
+            
+        }
+
         protected string FormatUrl(string resourceName)
         {
             return string.Format("{0}/services/data/{1}/{2}", InstanceUrl, ApiVersion, resourceName);
