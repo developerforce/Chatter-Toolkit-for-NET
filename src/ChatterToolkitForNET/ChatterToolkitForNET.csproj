@@ -37,8 +37,30 @@
   <ItemGroup>
     <Compile Include="ChatterClient.cs" />
     <Compile Include="IChatterClient.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Chatter.cs" />
-    <Compile Include="Models\Unorganized.cs" />
+    <Compile Include="Models\ChatterInfluence.cs" />
+    <Compile Include="Models\ClientInfo.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Comments.cs" />
+    <Compile Include="Models\FeedItem.cs" />
+    <Compile Include="Models\FeedItemBody.cs" />
+    <Compile Include="Models\FeedItemInput.cs" />
+    <Compile Include="Models\FollowingCounts.cs" />
+    <Compile Include="Models\Liked.cs" />
+    <Compile Include="Models\LikedItem.cs" />
+    <Compile Include="Models\Likes.cs" />
+    <Compile Include="Models\Me.cs" />
+    <Compile Include="Models\MessageSegment.cs" />
+    <Compile Include="Models\Motif.cs" />
+    <Compile Include="Models\Parent.cs" />
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\Preamble.cs" />
+    <Compile Include="Models\Reference.cs" />
+    <Compile Include="Models\Topics.cs" />
+    <Compile Include="Models\ChatterActivity.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

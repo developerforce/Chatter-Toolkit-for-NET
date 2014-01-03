@@ -84,7 +84,7 @@ namespace ChatterToolkitForNET.FunctionalTests
                 type = "Text"
             };
 
-            var body = new FeedItemInputBody { messageSegments = new List<MessageSegment> { messageSegment } };
+            var body = new FeedItemBody { messageSegments = new List<MessageSegment> { messageSegment } };
             var commentInput = new FeedItemInput()
             {
                 attachment = null,
@@ -117,7 +117,7 @@ namespace ChatterToolkitForNET.FunctionalTests
                 type = "Text",
             };
 
-            var body = new FeedItemInputBody
+            var body = new FeedItemBody
             {
                 messageSegments = new List<MessageSegment>
                 {
@@ -159,7 +159,7 @@ namespace ChatterToolkitForNET.FunctionalTests
                 type = "Text"
             };
 
-            var body = new FeedItemInputBody { messageSegments = new List<MessageSegment> { messageSegment } };
+            var body = new FeedItemBody { messageSegments = new List<MessageSegment> { messageSegment } };
             var feedItemInput = new FeedItemInput()
             {
                 attachment = null,

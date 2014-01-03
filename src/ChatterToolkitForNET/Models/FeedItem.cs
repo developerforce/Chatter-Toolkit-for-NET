@@ -1,0 +1,33 @@
+namespace ChatterToolkitForNET.Models
+{
+    public class FeedItem
+    {
+        public Parent parent { get; set; }
+        public string id { get; set; }
+        public string type { get; set; }
+        public string url { get; set; }
+        public string createdDate { get; set; }
+        public ClientInfo clientInfo { get; set; }
+        public FeedItemBody body { get; set; }
+        public string visibility { get; set; }
+        public bool @event { get; set; }
+        public Topics topics { get; set; }
+        public string photoUrl { get; set; }
+        public string relativeCreatedDate { get; set; }
+        public object likesMessage { get; set; }
+        public bool isBookmarkedByCurrentUser { get; set; }
+        public bool isDeleteRestricted { get; set; }
+        public bool isLikedByCurrentUser { get; set; }
+        public object moderationFlags { get; set; }
+        public object myLike { get; set; }
+        public object attachment { get; set; }
+        public object originalFeedItem { get; set; }
+        public object originalFeedItemActor { get; set; }
+        public bool canShare { get; set; }
+        public Comments comments { get; set; }
+        public Likes likes { get; set; }
+        public Preamble preamble { get; set; }
+        public string modifiedDate { get; set; }
+        public User actor { get; set; }
+    }
+}
