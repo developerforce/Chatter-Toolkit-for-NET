@@ -67,23 +67,7 @@ namespace ChatterToolkitForNET.FunctionalTests
         public async void Chatter_PostFeedItem()
         {
             var chatter = await GetChatterClient();
-            var me = await chatter.Me<Me>();
-            var id = me.id;
-
-            var messageSegment = new MessageSegment()
-            {
-                text = "Testing 1, 2, 3",
-                type = "Text"
-            };
-
-            var body = new FeedItemInputBody {messageSegments = new List<MessageSegment> {messageSegment}};
-            var feedItemInput = new FeedItemInput()
-            {
-                attachment = null,
-                body = body
-            };
-
-            var feedItem = await chatter.PostFeedItem<FeedItem>(feedItemInput, id);
+            var feedItem = await postFeedItem(chatter);
             Assert.IsNotNull(feedItem);
         }
 
@@ -91,8 +75,83 @@ namespace ChatterToolkitForNET.FunctionalTests
         public async void Chatter_Add_Comment()
         {
             var chatter = await GetChatterClient();
+            var feedItem = await postFeedItem(chatter);
+            var feedId = feedItem.id;
+
+            var messageSegment = new MessageSegment()
+            {
+                text = "Comment testing 1, 2, 3",
+                type = "Text"
+            };
+
+            var body = new FeedItemInputBody { messageSegments = new List<MessageSegment> { messageSegment } };
+            var commentInput = new FeedItemInput()
+            {
+                attachment = null,
+                body = body
+            };
+
+            var comment = await chatter.PostFeedItemComment<Comment>(commentInput, feedId);
+            Assert.IsNotNull(comment);
+        }
+
+        [Test]
+        public async void Chatter_Add_Comment_With_Mention_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var feedItem = await postFeedItem(chatter);
+            var feedId = feedItem.id;
+
             var me = await chatter.Me<Me>();
             var meId = me.id;
+
+            var messageSegment1 = new MessageSegment()
+            {
+                id = meId,
+                type = "mention",
+            };
+
+            var messageSegment2 = new MessageSegment()
+            {
+                text = "Comment testing 1, 2, 3",
+                type = "Text",
+            };
+
+            var body = new FeedItemInputBody
+            {
+                messageSegments = new List<MessageSegment>
+                {
+                    messageSegment1, 
+                    messageSegment2
+                }
+            };
+            var commentInput = new FeedItemInput()
+            {
+                attachment = null,
+                body = body
+            };
+
+            var comment = await chatter.PostFeedItemComment<Comment>(commentInput, feedId);
+            Assert.IsNotNull(comment);
+        }
+
+        [Test]
+        public async void Chatter_Like_FeedItem_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var feedItem = await postFeedItem(chatter);
+            var feedId = feedItem.id;
+            
+            var liked = await chatter.LikeFeedItem<Liked>(feedId);
+
+            Assert.IsNotNull(liked);
+        }
+
+        #region private functions
+        private async Task<FeedItem> postFeedItem(ChatterClient chatter)
+        {
+            var me = await chatter.Me<Me>();
+            var id = me.id;
 
             var messageSegment = new MessageSegment()
             {
@@ -107,24 +166,10 @@ namespace ChatterToolkitForNET.FunctionalTests
                 body = body
             };
 
-            var postFeedItem = await chatter.PostFeedItem<FeedItem>(feedItemInput, meId);
-            var feedId = postFeedItem.id;
-
-            var commentBody = new FeedItemBody
-            {
-                messageSegments = new List<MessageSegment>
-                {
-                    new MessageSegment
-                    {
-                        text = "Commenting testing 1, 2, 3",
-                        type = "Text"
-                    }
-                }
-            };
-
-            var comment = await chatter.PostFeedItemComment<object>(commentBody, feedId);
-            Assert.IsNotNull(comment);
+            var feedItem = await chatter.PostFeedItem<FeedItem>(feedItemInput, id);
+            return feedItem;
         }
+        #endregion
 
     }
 }

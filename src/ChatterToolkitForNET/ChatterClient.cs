@@ -17,7 +17,7 @@ namespace ChatterToolkitForNET
             this.ApiVersion = apiVersion;
             this.InstanceUrl = instanceUrl;
             this.AccessToken = accessToken;
-            string userAgent = "chatter-toolkit-dotnet/";
+            string userAgent = "chatter-toolkit-dotnet";
 
             _toolkitHttpClient = new ToolkitHttpClient(instanceUrl, apiVersion, accessToken, userAgent);
         }
@@ -46,10 +46,16 @@ namespace ChatterToolkitForNET
             return feedItem;
         }
 
-        public async Task<T> PostFeedItemComment<T>(FeedItemBody comment, string feedId)
+        public async Task<T> PostFeedItemComment<T>(FeedItemInput envelope, string feedId)
         {
-            var feedItem = await _toolkitHttpClient.HttpPost<T>(comment, string.Format("chatter/feed-items/{0}/comments", feedId));
+            var feedItem = await _toolkitHttpClient.HttpPost<T>(envelope, string.Format("chatter/feed-items/{0}/comments", feedId));
             return feedItem;
+        }
+
+        public async Task<T> LikeFeedItem<T>(string feedId)
+        {
+            var like = await _toolkitHttpClient.HttpPost<T>(null, string.Format("chatter/feed-items/{0}/likes", feedId));
+            return like;
         }
     }
 }
