@@ -21,10 +21,12 @@ namespace ChatterToolkitForNET.FunctionalTests
 
         public async Task<ChatterClient> GetChatterClient()
         {
-            var auth = new AuthClient();
-            await auth.Authenticate(_consumerKey, _consumerSecret, _username, _password, _tokenRequestEndpointUrl);
+            const string userAgent = "chatter-toolkit-dotnet";
 
-            var client = new ChatterClient(auth.ApiVersion, auth.InstanceUrl, auth.AccessToken);
+            var auth = new AuthClient();
+            await auth.Authenticate(_consumerKey, _consumerSecret, _username, _password, userAgent, _tokenRequestEndpointUrl);
+
+            var client = new ChatterClient(auth.InstanceUrl, auth.AccessToken, auth.ApiVersion);
             return client;
         }
 

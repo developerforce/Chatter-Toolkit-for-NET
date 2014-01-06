@@ -12,12 +12,13 @@ namespace ChatterToolkitForNET
         
         private static ToolkitHttpClient _toolkitHttpClient;
 
-        public ChatterClient(string apiVersion, string instanceUrl, string accessToken)
+        public ChatterClient(string instanceUrl, string accessToken, string apiVersion)
         {
-            this.ApiVersion = apiVersion;
             this.InstanceUrl = instanceUrl;
             this.AccessToken = accessToken;
-            string userAgent = "chatter-toolkit-dotnet";
+            this.ApiVersion = apiVersion;
+
+            const string userAgent = "chatter-toolkit-dotnet";
 
             _toolkitHttpClient = new ToolkitHttpClient(instanceUrl, apiVersion, accessToken, userAgent);
         }
