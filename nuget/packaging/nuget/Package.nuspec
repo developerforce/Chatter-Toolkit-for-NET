@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The DeveloperForce.Chatter NuGet provides a .NET library for interacting with the Salesforce Chatter APIs.</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright 2014</copyright>
     <tags>salesforce chatter rest api</tags>
     <dependencies>
       <dependency id="Microsoft.Bcl" version="1.1.6" />
