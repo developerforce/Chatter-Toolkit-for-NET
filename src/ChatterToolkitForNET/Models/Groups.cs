@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace Salesforce.Chatter.Models
 {
-    public class Comments
+    public class Groups
     {
-        public int total { get; set; }
-        public List<Comment> comments { get; set; }
         public string currentPageUrl { get; set; }
         public object nextPageUrl { get; set; }
+        public object previousPageUrl { get; set; }
+        public List<Group> groups { get; set; }
     }
 }

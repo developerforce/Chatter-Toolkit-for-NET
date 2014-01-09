@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ChatterToolkitForNET.Models
+namespace Salesforce.Chatter.Models
 {
     public class FeedItemBody
     {

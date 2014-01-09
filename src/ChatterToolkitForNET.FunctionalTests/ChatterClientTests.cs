@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using CommonToolkitForNET;
 using NUnit.Framework;
-using ChatterToolkitForNET.Models;
+using Salesforce.Chatter.Models;
+using Salesforce.Common;
 
-namespace ChatterToolkitForNET.FunctionalTests
+namespace Salesforce.Chatter.FunctionalTests
 {
     public class ChatterClientTests
     {
@@ -24,7 +21,7 @@ namespace ChatterToolkitForNET.FunctionalTests
             const string userAgent = "chatter-toolkit-dotnet";
 
             var auth = new AuthClient();
-            await auth.Authenticate(_consumerKey, _consumerSecret, _username, _password, userAgent, _tokenRequestEndpointUrl);
+            await auth.AuthenticatePassword(_consumerKey, _consumerSecret, _username, _password, userAgent, _tokenRequestEndpointUrl);
 
             var client = new ChatterClient(auth.InstanceUrl, auth.AccessToken, auth.ApiVersion);
             return client;
@@ -147,6 +144,59 @@ namespace ChatterToolkitForNET.FunctionalTests
             var liked = await chatter.LikeFeedItem<Liked>(feedId);
 
             Assert.IsNotNull(liked);
+        }
+
+        [Test]
+        public async void Chatter_Share_FeedItem_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var feedItem = await postFeedItem(chatter);
+            var feedId = feedItem.id;
+
+            var me = await chatter.Me<Me>();
+            var meId = me.id;
+
+            var sharedFeedItem = await chatter.ShareFeedItem<FeedItem>(feedId, meId);
+
+            Assert.IsNotNull(sharedFeedItem);
+        }
+
+        [Test]
+        public async void Chatter_Get_My_News_Feed_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var myNewsFeeds = await chatter.GetMyNewsFeed<FeedModifiedInfo>();
+
+            Assert.IsNotNull(myNewsFeeds);
+        }
+
+        [Test]
+        public async void Chatter_Get_My_News_Feed_WithQuery_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var myNewsFeeds = await chatter.GetMyNewsFeed<FeedModifiedInfo>("wade");
+
+            Assert.IsNotNull(myNewsFeeds);
+        }
+
+        [Test]
+        public async void Chatter_Get_Groups_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var groups = await chatter.GetGroups<Groups>();
+
+            Assert.IsNotNull(groups);
+        }
+        
+        [Test]
+        public async void Chatter_Get_Group_News_Feed_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var groups = await chatter.GetGroups<Groups>();
+            var groupId = groups.groups[0].id;
+            var groupFeed = await chatter.GetGroupFeed<FeedModifiedInfo>(groupId);
+
+            Assert.IsNotNull(groupFeed);
         }
 
         #region private functions

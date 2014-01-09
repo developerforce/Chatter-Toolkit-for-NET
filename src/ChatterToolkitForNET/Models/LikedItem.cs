@@ -1,4 +1,4 @@
-namespace ChatterToolkitForNET.Models
+namespace Salesforce.Chatter.Models
 {
     public class LikedItem
     {
