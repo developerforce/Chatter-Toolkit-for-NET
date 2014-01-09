@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DeveloperForce.Chatter</id>
-    <title>DeveloperForce.Chatter</id>
+    <title>DeveloperForce.Chatter</title>
     <version>$version$</version>
     <authors>DeveloperForce,WadeWegner</authors>
     <owners>DeveloperForce,WadeWegner</owners>
