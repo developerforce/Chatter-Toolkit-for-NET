@@ -84,7 +84,11 @@ var apiVersion = auth.ApiVersion;
 var client = new ChatterClient(instanceUrl, accessToken, apiVersion);
 ```
 
-### Get Information About Yourself
+### Sample Code
+
+Below you'll find a few examples that show how to use the toolkit.
+
+#### Get Information About Yourself
 
 You can grab your personal feed with the following code:
 
@@ -92,7 +96,7 @@ You can grab your personal feed with the following code:
 var me = await chatter.Me<Me>();
 ```
 
-### Post to Your Feed
+#### Post to Your Feed
 
 You can easily post to your Chatter feed with the following code:
 
@@ -116,7 +120,7 @@ var feedItemInput = new FeedItemInput()
 var feedItem = await chatter.PostFeedItem<FeedItem>(feedItemInput, id);
 ```
 
-### Comment on a Feed
+#### Comment on a Feed
 
 You can comment on a Chatter feed with the following code:
 
@@ -139,7 +143,7 @@ var commentInput = new FeedItemInput()
 var comment = await chatter.PostFeedItemComment<Comment>(commentInput, feedId);
 ```
 
-### Like a Feed
+#### Like a Feed
 
 You can like a Chatter feed with the following code:
 
