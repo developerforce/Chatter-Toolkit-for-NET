@@ -10,7 +10,7 @@ namespace Salesforce.Chatter
         public string InstanceUrl { get; set; }
         public string AccessToken { get; set; }
         
-        private static SalesforceHttpClient _httpClient;
+        private static ServiceHttpClient _httpClient;
 
         public ChatterClient(string instanceUrl, string accessToken, string apiVersion)
         {
@@ -20,7 +20,7 @@ namespace Salesforce.Chatter
 
             const string userAgent = "chatter-toolkit-dotnet";
 
-            _httpClient = new SalesforceHttpClient(instanceUrl, apiVersion, accessToken, userAgent);
+            _httpClient = new ServiceHttpClient(instanceUrl, apiVersion, accessToken, userAgent);
         }
         
         public async Task<T> Feeds<T>()
