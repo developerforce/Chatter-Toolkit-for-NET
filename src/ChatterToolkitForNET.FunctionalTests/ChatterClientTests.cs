@@ -20,8 +20,8 @@ namespace Salesforce.Chatter.FunctionalTests
         {
             const string userAgent = "chatter-toolkit-dotnet";
 
-            var auth = new AuthClient();
-            await auth.AuthenticatePassword(_consumerKey, _consumerSecret, _username, _password, userAgent, _tokenRequestEndpointUrl);
+            var auth = new AuthenticationClient();
+            await auth.UsernamePassword(_consumerKey, _consumerSecret, _username, _password, userAgent, _tokenRequestEndpointUrl);
 
             var client = new ChatterClient(auth.InstanceUrl, auth.AccessToken, auth.ApiVersion);
             return client;
