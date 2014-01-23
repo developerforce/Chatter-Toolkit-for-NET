@@ -14,15 +14,15 @@ namespace Salesforce.Chatter.Models
         public Topics topics { get; set; }
         public string photoUrl { get; set; }
         public string relativeCreatedDate { get; set; }
-        public object likesMessage { get; set; }
+        public LikesMessage likesMessage { get; set; }
         public bool isBookmarkedByCurrentUser { get; set; }
         public bool isDeleteRestricted { get; set; }
         public bool isLikedByCurrentUser { get; set; }
         public object moderationFlags { get; set; }
-        public object myLike { get; set; }
+        public MyLike myLike { get; set; }
         public object attachment { get; set; }
-        public object originalFeedItem { get; set; }
-        public object originalFeedItemActor { get; set; }
+        public OriginalFeedItem originalFeedItem { get; set; }
+        public OriginalFeedItemActor originalFeedItemActor { get; set; }
         public bool canShare { get; set; }
         public Comments comments { get; set; }
         public Likes likes { get; set; }
