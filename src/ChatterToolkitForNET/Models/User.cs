@@ -5,8 +5,8 @@ namespace Salesforce.Chatter.Models
         public string companyName { get; set; }
         public string firstName { get; set; }
         public string id { get; set; }
-        public bool isInThisCommunity { get; set; }
         public bool isActive { get; set; }
+        public bool isInThisCommunity { get; set; }
         public string lastName { get; set; }
         public Motif motif { get; set; }
         public Reference mySubscription { get; set; }
