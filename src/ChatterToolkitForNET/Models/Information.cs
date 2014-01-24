@@ -6,7 +6,7 @@ namespace Salesforce.Chatter.Models
 {
     public class Information
     {
-        public object text { get; set; }
-        public object title { get; set; }
+        public string text { get; set; }
+        public string title { get; set; }
     }
 }

@@ -7,6 +7,6 @@ namespace Salesforce.Chatter.Models
 
         public User user { get; set; }
 
-        public LikedItem likedItem { get; set; }
+        public Reference likedItem { get; set; }
     }
 }

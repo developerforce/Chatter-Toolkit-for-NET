@@ -40,6 +40,7 @@
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ChatterInfluence.cs" />
+    <Compile Include="Models\ModerationFlags.cs" />
     <Compile Include="Models\ClientInfo.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Comments.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Models\Me.cs" />
     <Compile Include="Models\MessageSegment.cs" />
     <Compile Include="Models\Motif.cs" />
+    <Compile Include="Models\PhoneNumber.cs" />
     <Compile Include="Models\MyLike.cs" />
     <Compile Include="Models\MySubscription.cs" />
     <Compile Include="Models\OriginalFeedItem.cs" />

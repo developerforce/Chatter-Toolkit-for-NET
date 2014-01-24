@@ -2,6 +2,7 @@ namespace Salesforce.Chatter.Models
 {
     public class Parent
     {
+        // This is the same as User (API=UserSummary)
         public bool isActive { get; set; }
         public string name { get; set; }
         public object title { get; set; }
