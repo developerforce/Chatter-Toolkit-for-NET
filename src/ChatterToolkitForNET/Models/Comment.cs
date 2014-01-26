@@ -8,10 +8,10 @@ namespace Salesforce.Chatter.Models
         public ClientInfo clientInfo { get; set; }
         public Likes likes { get; set; }
         public string relativeCreatedDate { get; set; }
-        public object likesMessage { get; set; }
+        public LikesMessage likesMessage { get; set; }
         public bool isDeleteRestricted { get; set; }
         public object moderationFlags { get; set; }
-        public object myLike { get; set; }
+        public MyLike myLike { get; set; }
         public object attachment { get; set; }
         public string createdDate { get; set; }
         public string url { get; set; }

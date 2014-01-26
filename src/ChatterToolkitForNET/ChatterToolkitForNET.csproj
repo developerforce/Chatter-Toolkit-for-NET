@@ -52,6 +52,7 @@
     <Compile Include="Models\Groups.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Liked.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\LikedItem.cs" />
     <Compile Include="Models\Likes.cs" />
     <Compile Include="Models\LikesMessage.cs" />
