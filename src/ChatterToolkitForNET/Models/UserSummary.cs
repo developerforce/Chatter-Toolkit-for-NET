@@ -1,6 +1,6 @@
 namespace Salesforce.Chatter.Models
 {
-    public class User
+    public class UserSummary
     {
         public string companyName { get; set; }
         public string firstName { get; set; }

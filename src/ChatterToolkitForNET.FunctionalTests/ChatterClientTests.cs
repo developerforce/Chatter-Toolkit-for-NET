@@ -48,7 +48,7 @@ namespace Salesforce.Chatter.FunctionalTests
         public async void Chatter_Users_Me_IsNotNull()
         {
             var chatter = await GetChatterClient();
-            var me = await chatter.Me<Me>();
+            var me = await chatter.Me<UserDetail>();
 
             Assert.IsNotNull(me);
         }
@@ -57,7 +57,7 @@ namespace Salesforce.Chatter.FunctionalTests
         public async void Chatter_Users_Me_Id_IsNotNull()
         {
             var chatter = await GetChatterClient();
-            var me = await chatter.Me<Me>();
+            var me = await chatter.Me<UserDetail>();
 
             Assert.IsNotNull(me.id);
         }
@@ -83,7 +83,7 @@ namespace Salesforce.Chatter.FunctionalTests
                 type = "Text"
             };
 
-            var body = new FeedItemBody { messageSegments = new List<MessageSegment> { messageSegment } };
+            var body = new MessageBodyInput { messageSegments = new List<MessageSegment> { messageSegment } };
             var commentInput = new FeedItemInput()
             {
                 attachment = null,
@@ -101,13 +101,13 @@ namespace Salesforce.Chatter.FunctionalTests
             var feedItem = await postFeedItem(chatter);
             var feedId = feedItem.id;
 
-            var me = await chatter.Me<Me>();
+            var me = await chatter.Me<UserDetail>();
             var meId = me.id;
 
             var messageSegment1 = new MessageSegment()
             {
-                id = meId,
-                type = "mention",
+                record = me,
+                type = "Mention",
             };
 
             var messageSegment2 = new MessageSegment()
@@ -116,7 +116,7 @@ namespace Salesforce.Chatter.FunctionalTests
                 type = "Text",
             };
 
-            var body = new FeedItemBody
+            var body = new MessageBodyInput
             {
                 messageSegments = new List<MessageSegment>
                 {
@@ -141,7 +141,7 @@ namespace Salesforce.Chatter.FunctionalTests
             var feedItem = await postFeedItem(chatter);
             var feedId = feedItem.id;
             
-            var liked = await chatter.LikeFeedItem<Liked>(feedId);
+            var liked = await chatter.LikeFeedItem<Like>(feedId);
 
             Assert.IsNotNull(liked);
         }
@@ -153,7 +153,7 @@ namespace Salesforce.Chatter.FunctionalTests
             var feedItem = await postFeedItem(chatter);
             var feedId = feedItem.id;
 
-            var me = await chatter.Me<Me>();
+            var me = await chatter.Me<UserDetail>();
             var meId = me.id;
 
             var sharedFeedItem = await chatter.ShareFeedItem<FeedItem>(feedId, meId);
@@ -165,7 +165,7 @@ namespace Salesforce.Chatter.FunctionalTests
         public async void Chatter_Get_My_News_Feed_IsNotNull()
         {
             var chatter = await GetChatterClient();
-            var myNewsFeeds = await chatter.GetMyNewsFeed<FeedModifiedInfo>();
+            var myNewsFeeds = await chatter.GetMyNewsFeed<FeedItemPage>();
 
             Assert.IsNotNull(myNewsFeeds);
         }
@@ -174,7 +174,7 @@ namespace Salesforce.Chatter.FunctionalTests
         public async void Chatter_Get_My_News_Feed_WithQuery_IsNotNull()
         {
             var chatter = await GetChatterClient();
-            var myNewsFeeds = await chatter.GetMyNewsFeed<FeedModifiedInfo>("wade");
+            var myNewsFeeds = await chatter.GetMyNewsFeed<FeedItemPage>("wade");
 
             Assert.IsNotNull(myNewsFeeds);
         }
@@ -183,7 +183,7 @@ namespace Salesforce.Chatter.FunctionalTests
         public async void Chatter_Get_Groups_IsNotNull()
         {
             var chatter = await GetChatterClient();
-            var groups = await chatter.GetGroups<Groups>();
+            var groups = await chatter.GetGroups<GroupPage>();
 
             Assert.IsNotNull(groups);
         }
@@ -192,9 +192,9 @@ namespace Salesforce.Chatter.FunctionalTests
         public async void Chatter_Get_Group_News_Feed_IsNotNull()
         {
             var chatter = await GetChatterClient();
-            var groups = await chatter.GetGroups<Groups>();
+            var groups = await chatter.GetGroups<GroupPage>();
             var groupId = groups.groups[0].id;
-            var groupFeed = await chatter.GetGroupFeed<FeedModifiedInfo>(groupId);
+            var groupFeed = await chatter.GetGroupFeed<FeedItemPage>(groupId);
 
             Assert.IsNotNull(groupFeed);
         }
@@ -202,7 +202,7 @@ namespace Salesforce.Chatter.FunctionalTests
         #region private functions
         private async Task<FeedItem> postFeedItem(ChatterClient chatter)
         {
-            var me = await chatter.Me<Me>();
+            var me = await chatter.Me<UserDetail>();
             var id = me.id;
 
             var messageSegment = new MessageSegment()
@@ -211,7 +211,7 @@ namespace Salesforce.Chatter.FunctionalTests
                 type = "Text"
             };
 
-            var body = new FeedItemBody { messageSegments = new List<MessageSegment> { messageSegment } };
+            var body = new MessageBodyInput { messageSegments = new List<MessageSegment> { messageSegment } };
             var feedItemInput = new FeedItemInput()
             {
                 attachment = null,

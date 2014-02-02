@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Salesforce.Chatter.Models
 {
-    public class Information
+    public class GroupInformation
     {
         public string text { get; set; }
         public string title { get; set; }

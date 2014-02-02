@@ -2,11 +2,12 @@ using System.Collections.Generic;
 
 namespace Salesforce.Chatter.Models
 {
-    public class Comments
+    public class FeedItemPage
     {
-        public List<Comment> comments { get; set; }
         public string currentPageUrl { get; set; }
+        public string isModifiedToken { get; set; }
+        public string isModifiedUrl { get; set; }
+        public List<FeedItem> items { get; set; }
         public string nextPageUrl { get; set; }
-        public int total { get; set; }
     }
 }

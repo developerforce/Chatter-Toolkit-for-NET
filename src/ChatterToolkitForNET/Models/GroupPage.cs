@@ -2,12 +2,11 @@ using System.Collections.Generic;
 
 namespace Salesforce.Chatter.Models
 {
-    public class FeedModifiedInfo
+    public class GroupPage
     {
-        public List<Item> items { get; set; }
-        public string isModifiedToken { get; set; }
-        public string isModifiedUrl { get; set; }
         public string currentPageUrl { get; set; }
+        public List<Group> groups { get; set; }
         public string nextPageUrl { get; set; }
+        public string previousPageUrl { get; set; }
     }
 }

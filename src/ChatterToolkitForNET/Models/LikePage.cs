@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Salesforce.Chatter.Models
 {
-    public class Likes
+    public class LikePage
     {
         public string currentPageUrl { get; set; }
         public List<Like> likes { get; set; }

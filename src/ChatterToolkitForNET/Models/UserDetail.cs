@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Salesforce.Chatter.Models
 {
-    public class Me
+    public class UserDetail
     {
         public string aboutMe { get; set; }
         public Address address { get; set; }
