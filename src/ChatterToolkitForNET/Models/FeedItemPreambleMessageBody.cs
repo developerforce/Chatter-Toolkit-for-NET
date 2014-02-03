@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Salesforce.Chatter.Models
 {
-    public class Preamble
+    public class FeedItemPreambleMessageBody
     {
-        public string text { get; set; }
         public List<MessageSegment> messageSegments { get; set; }
+        public string text { get; set; }
     }
 }
