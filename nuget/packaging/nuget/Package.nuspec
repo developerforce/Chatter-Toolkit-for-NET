@@ -20,13 +20,12 @@
       <dependency id="Microsoft.Bcl.Build" version="1.0.13" />
       <dependency id="Microsoft.Net.Http" version="2.2.18" />
       <dependency id="Newtonsoft.Json" version="5.0.8" />
-      <dependency id="DeveloperForce.Common" version="0.2.8" />
+      <dependency id="DeveloperForce.Common" version="0.3.1" />
     </dependencies>
   </metadata>
   <files>
     <file src="..\..\..\src\ChatterToolkitForNET\bin\Debug\Salesforce.Chatter.dll" target="lib" />
     <file src="..\..\..\src\ChatterToolkitForNET\bin\Debug\Salesforce.Chatter.pdb" target="lib" />
-    <file src="..\..\tools\Install.ps1" target="tools" />
     <file src="..\..\..\src\ChatterToolkitForNET\*.cs" target="src" />
     <file src="..\..\..\src\ChatterToolkitForNET\Models\*.cs" target="src" />
   </files>
