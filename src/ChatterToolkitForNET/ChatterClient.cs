@@ -81,5 +81,17 @@ namespace Salesforce.Chatter
             var groupFeed = await _serviceHttpClient.HttpGet<T>(string.Format("chatter/feeds/record/{0}/feed-items", groupId));
             return groupFeed;
         }
+
+        public async Task<T> GetUsers<T>()
+        {
+            var users = await _serviceHttpClient.HttpGet<T>("chatter/users");
+            return users;
+        }
+
+        public async Task<T> GetTopics<T>()
+        {
+            var users = await _serviceHttpClient.HttpGet<T>("connect/topics");
+            return users;
+        }
     }
 }

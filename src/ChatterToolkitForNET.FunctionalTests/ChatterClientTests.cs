@@ -77,13 +77,13 @@ namespace Salesforce.Chatter.FunctionalTests
             var feedItem = await postFeedItem(chatter);
             var feedId = feedItem.id;
 
-            var messageSegment = new MessageSegment()
+            var messageSegment = new MessageSegmentInput()
             {
                 text = "Comment testing 1, 2, 3",
                 type = "Text"
             };
 
-            var body = new MessageBodyInput { messageSegments = new List<MessageSegment> { messageSegment } };
+            var body = new MessageBodyInput { messageSegments = new List<MessageSegmentInput> { messageSegment } };
             var commentInput = new FeedItemInput()
             {
                 attachment = null,
@@ -104,13 +104,13 @@ namespace Salesforce.Chatter.FunctionalTests
             var me = await chatter.Me<UserDetail>();
             var meId = me.id;
 
-            var messageSegment1 = new MessageSegment()
+            var messageSegment1 = new MessageSegmentInput()
             {
-                record = me,
+                id = meId,
                 type = "Mention",
             };
 
-            var messageSegment2 = new MessageSegment()
+            var messageSegment2 = new MessageSegmentInput()
             {
                 text = "Comment testing 1, 2, 3",
                 type = "Text",
@@ -118,7 +118,7 @@ namespace Salesforce.Chatter.FunctionalTests
 
             var body = new MessageBodyInput
             {
-                messageSegments = new List<MessageSegment>
+                messageSegments = new List<MessageSegmentInput>
                 {
                     messageSegment1, 
                     messageSegment2
@@ -199,19 +199,37 @@ namespace Salesforce.Chatter.FunctionalTests
             Assert.IsNotNull(groupFeed);
         }
 
+        [Test]
+        public async void Chatter_Get_Topics_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var topics = await chatter.GetTopics<TopicCollection>();
+
+            Assert.IsNotNull(topics);
+        }
+
+        [Test]
+        public async void Chatter_Get_Users_IsNotNull()
+        {
+            var chatter = await GetChatterClient();
+            var users = await chatter.GetUsers<UserPage>();
+
+            Assert.IsNotNull(users);
+        }
+
         #region private functions
         private async Task<FeedItem> postFeedItem(ChatterClient chatter)
         {
             var me = await chatter.Me<UserDetail>();
             var id = me.id;
 
-            var messageSegment = new MessageSegment()
+            var messageSegment = new MessageSegmentInput()
             {
                 text = "Testing 1, 2, 3",
                 type = "Text"
             };
 
-            var body = new MessageBodyInput { messageSegments = new List<MessageSegment> { messageSegment } };
+            var body = new MessageBodyInput { messageSegments = new List<MessageSegmentInput> { messageSegment } };
             var feedItemInput = new FeedItemInput()
             {
                 attachment = null,

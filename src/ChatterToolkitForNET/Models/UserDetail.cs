@@ -25,7 +25,7 @@ namespace Salesforce.Chatter.Models
         public string name { get; set; }
         public List<PhoneNumber> phoneNumbers { get; set; }
         public Photo photo { get; set; }
-        public int thanksReceived { get; set; }
+        public int? thanksReceived { get; set; }
         public string title { get; set; }
         public string type { get; set; }
         public string url { get; set; }

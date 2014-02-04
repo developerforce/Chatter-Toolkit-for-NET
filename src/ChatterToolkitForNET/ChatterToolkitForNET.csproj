@@ -41,6 +41,10 @@
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ChatterInfluence.cs" />
+    <Compile Include="Models\MessageSegmentInput.cs" />
+    <Compile Include="Models\TopicCollection.cs" />
+    <Compile Include="Models\Topic.cs" />
+    <Compile Include="Models\UserPage.cs" />
     <Compile Include="Models\MessageBodyInput.cs" />
     <Compile Include="Models\ModerationFlags.cs" />
     <Compile Include="Models\ClientInfo.cs" />
@@ -91,7 +95,7 @@
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Salesforce.Common">
-      <HintPath>..\packages\DeveloperForce.Common.0.2.7\lib\Salesforce.Common.dll</HintPath>
+      <HintPath>..\packages\DeveloperForce.Common.0.2.9\lib\Salesforce.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.IO">
       <HintPath>..\packages\Microsoft.Bcl.1.1.6\lib\portable-net40+sl5+win8+wp8\System.IO.dll</HintPath>

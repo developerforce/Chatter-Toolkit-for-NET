@@ -2,11 +2,10 @@ using System.Collections.Generic;
 
 namespace Salesforce.Chatter.Models
 {
-    public class GroupPage
+    public class TopicCollection
     {
         public string currentPageUrl { get; set; }
-        public List<GroupDetail> groups { get; set; }
         public string nextPageUrl { get; set; }
-        public string previousPageUrl { get; set; }
+        public List<Topic> topics { get; set; }
     }
 }
