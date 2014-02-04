@@ -44,7 +44,7 @@ The Username-Password Authentication Flow is a straightforward way to get an acc
 ```
 var auth = new AuthenticationClient();
 
-await auth.UsernamePassword("YOURCONSUMERKEY", "YOURCONSUMERSECRET", "YOURUSERNAME", "YOURPASSWORD");
+await auth.UsernamePasswordAsync("YOURCONSUMERKEY", "YOURCONSUMERSECRET", "YOURUSERNAME", "YOURPASSWORD");
 ```
 
 #### Web-Server Authentication Flow
@@ -65,7 +65,7 @@ var url =
 After the user logs in you'll need to handle the callback and retrieve the code that is returned. Using this code, you can then request an access token.
 
 ```
-await auth.WebServer("YOURCONSUMERKEY", "YOURCONSUMERSECRET", "YOURCALLBACKURL", code);
+await auth.WebServerAsync("YOURCONSUMERKEY", "YOURCONSUMERSECRET", "YOURCALLBACKURL", code);
 ```
 
 You can see a demonstration of this in the following sample application: https://github.com/developerforce/Force.com-Toolkit-for-NET/tree/master/samples/WebServerOAuthFlow
@@ -93,7 +93,7 @@ Below you'll find a few examples that show how to use the toolkit.
 You can grab your personal feed with the following code:
 
 ```
-var me = await chatter.Me<Me>();
+var me = await chatter.MeAsync<Me>();
 ```
 
 #### Post to Your Feed
@@ -101,7 +101,7 @@ var me = await chatter.Me<Me>();
 You can easily post to your Chatter feed with the following code:
 
 ```
-var me = await chatter.Me<Me>();
+var me = await chatter.MeAsync<Me>();
 var id = me.id;
 
 var messageSegment = new MessageSegment()
@@ -117,7 +117,7 @@ var feedItemInput = new FeedItemInput()
     body = body
 };
 
-var feedItem = await chatter.PostFeedItem<FeedItem>(feedItemInput, id);
+var feedItem = await chatter.PostFeedItemAsync<FeedItem>(feedItemInput, id);
 ```
 
 #### Comment on a Feed
@@ -140,7 +140,7 @@ var commentInput = new FeedItemInput()
     body = body
 };
 
-var comment = await chatter.PostFeedItemComment<Comment>(commentInput, feedId);
+var comment = await chatter.PostFeedItemCommentAsync<Comment>(commentInput, feedId);
 ```
 
 #### Like a Feed
@@ -150,5 +150,5 @@ You can like a Chatter feed with the following code:
 ```
 var feedId = feedItem.id;
 
-var liked = await chatter.LikeFeedItem<Liked>(feedId);
+var liked = await chatter.LikeFeedItemAsync<Liked>(feedId);
 ```
