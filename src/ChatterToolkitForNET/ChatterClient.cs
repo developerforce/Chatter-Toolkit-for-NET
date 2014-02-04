@@ -22,39 +22,39 @@ namespace Salesforce.Chatter
         
         public async Task<T> Feeds<T>()
         {
-            var feeds = await _serviceHttpClient.HttpGet<T>("chatter/feeds");
+            var feeds = await _serviceHttpClient.HttpGetAsync<T>("chatter/feeds");
             return feeds;
         }
 
         public async Task<T> Me<T>()
         {
-            var me = await _serviceHttpClient.HttpGet<T>("chatter/users/me");
+            var me = await _serviceHttpClient.HttpGetAsync<T>("chatter/users/me");
             return me;
         }
 
         public async Task<T> PostFeedItem<T>(FeedItemInput feedItemInput, string userId)
         {
-            var feedItem = await _serviceHttpClient.HttpPost<T>(feedItemInput, string.Format("chatter/feeds/news/{0}/feed-items", userId));
+            var feedItem = await _serviceHttpClient.HttpPostAsync<T>(feedItemInput, string.Format("chatter/feeds/news/{0}/feed-items", userId));
             return feedItem;
         }
 
         public async Task<T> PostFeedItemComment<T>(FeedItemInput envelope, string feedId)
         {
-            var feedItem = await _serviceHttpClient.HttpPost<T>(envelope, string.Format("chatter/feed-items/{0}/comments", feedId));
+            var feedItem = await _serviceHttpClient.HttpPostAsync<T>(envelope, string.Format("chatter/feed-items/{0}/comments", feedId));
             return feedItem;
         }
 
         public async Task<T> LikeFeedItem<T>(string feedId)
         {
-            var like = await _serviceHttpClient.HttpPost<T>(null, string.Format("chatter/feed-items/{0}/likes", feedId));
+            var like = await _serviceHttpClient.HttpPostAsync<T>(null, string.Format("chatter/feed-items/{0}/likes", feedId));
             return like;
         }
 
         public async Task<T> ShareFeedItem<T>(string feedId, string userId)
         {
-            var sharedFeedItem = new SharedFeedItem {originalFeedItemId = feedId};
+            var sharedFeedItem = new SharedFeedItemInput {originalFeedItemId = feedId};
 
-            var feedItem = await _serviceHttpClient.HttpPost<T>(sharedFeedItem, string.Format("chatter/feeds/user-profile/{0}/feed-items", userId));
+            var feedItem = await _serviceHttpClient.HttpPostAsync<T>(sharedFeedItem, string.Format("chatter/feeds/user-profile/{0}/feed-items", userId));
             return feedItem;
         }
 
@@ -64,22 +64,34 @@ namespace Salesforce.Chatter
 
             if (!string.IsNullOrEmpty(query))
                 url += string.Format("?q={0}",query);
-                
-            var myNewsFeed = await _serviceHttpClient.HttpGet<T>(url);
+
+            var myNewsFeed = await _serviceHttpClient.HttpGetAsync<T>(url);
 
             return myNewsFeed;
         }
 
         public async Task<T> GetGroups<T>()
         {
-            var groups = await _serviceHttpClient.HttpGet<T>("chatter/groups");
+            var groups = await _serviceHttpClient.HttpGetAsync<T>("chatter/groups");
             return groups;
         }
 
         public async Task<T> GetGroupFeed<T>(string groupId)
         {
-            var groupFeed = await _serviceHttpClient.HttpGet<T>(string.Format("chatter/feeds/record/{0}/feed-items", groupId));
+            var groupFeed = await _serviceHttpClient.HttpGetAsync<T>(string.Format("chatter/feeds/record/{0}/feed-items", groupId));
             return groupFeed;
+        }
+
+        public async Task<T> GetUsers<T>()
+        {
+            var users = await _serviceHttpClient.HttpGetAsync<T>("chatter/users");
+            return users;
+        }
+
+        public async Task<T> GetTopics<T>()
+        {
+            var users = await _serviceHttpClient.HttpGetAsync<T>("connect/topics");
+            return users;
         }
     }
 }

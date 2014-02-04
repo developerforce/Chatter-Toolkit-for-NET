@@ -1,16 +1,15 @@
 namespace Salesforce.Chatter.Models
 {
-    public class Group
+    public class GroupDetail
     {
  
         public bool canHaveChatterGuests { get; set; }
         public Reference community { get; set; }
         public string description { get; set; }
         public string emailToChatterAddress { get; set; }
-        public bool isArchived { get; set; }
-        public bool isAutoArchiveDisabled { get; set; }
         public int fileCount { get; set; }
         public string id { get; set; }
+        public GroupInformation information { get; set; }
         public string lastFeedItemPostDate { get; set; }
         public int memberCount { get; set; }
         public Motif motif { get; set; }
